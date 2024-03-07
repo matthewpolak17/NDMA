@@ -1,0 +1,55 @@
+/* loginstyle.module.css */
+
+.loginContainer {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.loginLabel {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* .NursingLogo{
+    display: flex;
+    justify-content: center;
+    width: ;
+} */
+
+.NursingLogo{
+    width: 200px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+  

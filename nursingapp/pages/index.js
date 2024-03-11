@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import styles from '../styles/loginstyle.module.css';
 
 export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,16 +16,18 @@ export default function Home() {
       password,
     });
 
-    if (!status.error) {
-      // Handle success
+    if (status.error) {
+      console.log("Error");
     } else {
-      // Handle error
+      console.log("Sign-in successful, redirecting...");
+      router.push('/profile');
     }
+
   };
 
   return (
     <div>
-      <img src="/WKU School Of Nursing Logo.jpg" alt="WKU Nursing Logo" className="NursingLogo" />
+      <img src="/WKU School Of Nursing Logo.jpg" alt="WKU Nursing Logo" style={{width: "400px", marginLeft:"36%"}}/>
       <h1>Welcome to the Nursing Documentation Management Portal</h1>
       <div className={styles.loginContainer}>
         <h2>Login</h2>
@@ -39,7 +43,7 @@ export default function Home() {
           <button className={styles.button} type="submit">Sign In</button>
         </form>
       </div>
-      <p>Welcome to the Nursing Documentation Management Portal!</p>
+      <p>Don't have an account? Register <a href="">here</a></p>
     </div>
   );
 }

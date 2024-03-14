@@ -43,7 +43,7 @@ export default function Home() {
           <button className={styles.button} type="submit">Sign In</button>
         </form>
       </div>
-      <p>Don't have an account? Register <a href="">here</a></p>
+      <p>Don't have an account? Register <a href="/register">here</a></p>
     </div>
   );
 }

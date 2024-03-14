@@ -1,4 +1,4 @@
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -6,10 +6,13 @@ export default function Profile() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    console.log(session);
+
     useEffect(() => {
         // Redirect to sign-in page if not authenticated
         if (status === 'unauthenticated') {
-            signIn();
+            router.push("/");
+            console.log("You have been signed out");
         }
     }, [status, router]);
 

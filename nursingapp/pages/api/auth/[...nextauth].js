@@ -19,9 +19,8 @@ export default NextAuth({
                 const user = await prisma.user.findUnique({
                     where: { username: credentials.username },
                 });
-
                 if (user && bcrypt.compareSync(credentials.password, user.password_hash)) {
-                    return { id: user.id, name: user.username, email: '' }; // Adjust according to your schema
+                    return { id: user.id, name: user.username, email: '' };
                 } else {
                     throw new Error('Invalid username or password');
                 }

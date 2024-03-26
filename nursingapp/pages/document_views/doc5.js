@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import BackButton from '../../components/BackButton';
 
 export default function Doc5() {
     const { data: session, status } = useSession();

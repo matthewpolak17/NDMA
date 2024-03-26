@@ -10,11 +10,13 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.time('siTimer');
     const status = await signIn('credentials', {
       redirect: false,
       username,
       password,
     });
+    console.timeEnd('siTimer');
 
     if (status.error) {
       console.log("Error");

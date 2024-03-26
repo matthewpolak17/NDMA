@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import BackButton from '../../components/BackButton';
 
 export default function Doc1() {
+    console.time('docTimer');
     const { data: session, status } = useSession();
     const router = useRouter();
     
@@ -18,6 +19,7 @@ export default function Doc1() {
     if (status === "loading") {
         return <p>Loading...</p>;
     }
+    console.timeEnd('docTimer');
 
     return(
         <div>
@@ -26,4 +28,5 @@ export default function Doc1() {
             <BackButton /><br/><br/>
         </div>
     );
+    
 }

@@ -39,7 +39,7 @@ export default function Register() {
 
     return (
         <div>
-            <h1>Gold Scar!</h1>
+            <h1>Welcome! Create an account here</h1>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <label className={styles.loginLabel} htmlFor="username">Username</label>

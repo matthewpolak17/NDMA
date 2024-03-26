@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div>
       <img src="/WKU School Of Nursing Logo.jpg" alt="WKU Nursing Logo" style={{width: "400px", marginLeft:"36%"}}/>
-      <h1>Welcome to the Nursing Documentation Management Portal</h1>
+      <h1 className={styles.centerText}>Welcome to the Nursing Documentation Management Portal</h1>
       <div className={styles.loginContainer}>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
@@ -43,7 +43,7 @@ export default function Home() {
           <button className={styles.button} type="submit">Sign In</button>
         </form>
       </div>
-      <p>Don't have an account? Register <a href="/register">here</a></p>
+      <p className={styles.centerText}>Don't have an account? Register <a href="/register">here</a></p>
     </div>
   );
 }

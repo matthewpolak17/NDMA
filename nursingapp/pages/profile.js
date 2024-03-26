@@ -1,6 +1,8 @@
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import styles from '../styles/profilestyle.module.css';
+import PdfEditor from './PDFEditor'; // Corrected import statement
 
 export default function Profile() {
     const { data: session, status } = useSession();
@@ -22,11 +24,12 @@ export default function Profile() {
 
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1 className={styles.centerText}>Nursing Document Submission Portal</h1>
             {session ? (
                 <div>
                     {/* Ensure the correct property is used to display the user's name */}
-                    <p>Welcome, {session.user.name}!</p>
+                    <p className={styles.addressUser}>Welcome, {session.user.name}!</p>
+                    <PdfEditor /> {/* Include the PdfEditor component */}
                 </div>
             ) : (
                 <p>You are not signed in.</p>

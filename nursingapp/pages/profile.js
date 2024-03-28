@@ -31,7 +31,6 @@ export default function Profile() {
                 <div>
                     {/* Ensure the correct property is used to display the user's name */}
                     <p className={styles.addressUser}>Welcome, {session.user.name}!</p>
-                    <PdfEditor /> {/* Include the PdfEditor component */}
                 </div>
             ) : (
                 <p>You are not signed in.</p>
@@ -39,7 +38,7 @@ export default function Profile() {
             <hr/>
             <p>Please fill out the following forms</p><br/>
             <ul>
-                <li><Link href="">2022 COVID Care Volunteer Form WKU Feedback</Link></li>
+                <li><Link href="\document_pages\doc1">2022 COVID Care Volunteer Form WKU Feedback</Link></li>
                 <li><Link href="">Consent form Release of Information - Spring 2024</Link></li>
                 <li><Link href="">LPN to ASN Online Acceptance Form - Spring 2024</Link></li>
                 <li><Link href="">LPN to ASN Student Handbook Acknowledgement</Link></li>

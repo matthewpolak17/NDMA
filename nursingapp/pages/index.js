@@ -22,7 +22,7 @@ export default function Home() {
       console.log("Error");
     } else {
       console.log("Sign-in successful, redirecting...");
-      router.push('/profile');
+      router.push('/user/user_dashboard');
     }
 
   };

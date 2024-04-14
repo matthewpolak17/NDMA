@@ -24,19 +24,14 @@ export default function Home() {
     if (status.error) {
       console.log("Error");
     } else {
-
       console.log("Sign-in successful, redirecting...");
-        try {
-          const session = await getSession();
-        } catch (error) {
-          console.error("Error fetching the session");
-        }
-        console.log(session);
-        if (session.user.role === 'admin') {
-          router.push('/admin/dashboard');
-        } else {
-          router.push('/user/user_dashboard');
-        }
+      const session = await getSession();
+      console.log("USER ROLE: ", session.user.role);
+      if (session.user.role == "ADMIN") {
+        router.push('/admin/dashboard');
+      } else {
+        router.push('/user/user_dashboard');
+      }
     }
 
   };

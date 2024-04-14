@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import styles from '../styles/loginstyle.module.css';
 
 export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const { data: session } = useSession();
 
   //handles the login submission
   const handleSubmit = async (e) => {
@@ -21,8 +24,19 @@ export default function Home() {
     if (status.error) {
       console.log("Error");
     } else {
+
       console.log("Sign-in successful, redirecting...");
-      router.push('/user/user_dashboard');
+        try {
+          const session = await getSession();
+        } catch (error) {
+          console.error("Error fetching the session");
+        }
+        console.log(session);
+        if (session.user.role === 'admin') {
+          router.push('/admin/dashboard');
+        } else {
+          router.push('/user/user_dashboard');
+        }
     }
 
   };

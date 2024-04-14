@@ -1,10 +1,10 @@
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styles from '../styles/profilestyle.module.css';
-import PdfEditor from '../components/PDFEditor';
+import styles from '/styles/profilestyle.module.css';
+import PdfEditor from '../../components/PDFEditor';
 import Link from 'next/link';
-import LogoutButton from '../components/LogoutButton';
+import LogoutButton from '../../components/LogoutButton';
 
 export default function Profile() {
     const { data: session, status } = useSession();
@@ -18,6 +18,9 @@ export default function Profile() {
         if (status === 'unauthenticated') {
             router.push("/");
             console.log("You have been signed out");
+        } else if (session && session.user.role == 'admin') {
+            router.push("/pages/admin/dashboard");
+            console.log("Redirecting to admin view...");
         }
     }, [status, router]);
 
@@ -31,7 +34,6 @@ export default function Profile() {
             <h1 className={styles.centerText}>Nursing Document Submission Portal</h1>
             {session ? (
                 <div>
-                    {/* Ensure the correct property is used to display the user's name */}
                     <p className={styles.addressUser}>Welcome, {session.user.name}!</p>
                 </div>
             ) : (

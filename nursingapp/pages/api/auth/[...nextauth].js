@@ -24,7 +24,7 @@ export default NextAuth({
 
                 //finds it and returns a user or not
                 if (user && bcrypt.compareSync(credentials.password, user.password_hash)) {
-                    return { id: user.id, name: user.username, email: '' }; // Adjust according to your schema
+                    return { id: user.id, name: user.username, email: '', role: user.role }; // adjust according to schema
                 } else {
                     throw new Error('Invalid username or password');
                 }

@@ -8,6 +8,7 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    //handles the submission of the registration from
     const handleSubmit = async (event) => {
         event.preventDefault();
         //implement register function here
@@ -19,6 +20,7 @@ export default function Register() {
             body: JSON.stringify({ username, password }),
         });
 
+        //makes sure there are no errors
         if (response.ok) {
             //sign them in after registering
             const status = await signIn('credentials', {
@@ -37,6 +39,7 @@ export default function Register() {
         }
     }
 
+    //displays the register page
     return (
         <div>
             <h1>Welcome! Create an account here</h1>

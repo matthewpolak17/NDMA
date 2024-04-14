@@ -10,6 +10,7 @@ export default function Profile() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    //ensures that the user is signed in
     console.log(session);
 
     useEffect(() => {
@@ -24,6 +25,7 @@ export default function Profile() {
         return <p>Loading...</p>;
     }
 
+    //displays the main document page
     return (
         <div>
             <h1 className={styles.centerText}>Nursing Document Submission Portal</h1>

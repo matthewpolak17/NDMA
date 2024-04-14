@@ -14,6 +14,7 @@ const apiRoute = nextConnect({
     },
 });
 
+//gathers the file
 apiRoute.use(upload.single('file'));
 
 apiRoute.post((req, res) => {
@@ -25,6 +26,6 @@ export default apiRoute;
 
 export const config = {
     api: {
-        bodyParser: false, // Necessary for multer to process file uploads
+        bodyParser: false, // necessary for multer to process file uploads
     },
 };

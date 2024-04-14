@@ -1,13 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
+//package to simplify database transactions
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
+
     if (req.method === 'POST') {
+        //gather user info
         const { username, password } = req.body;
         const passwordHash = bcrypt.hashSync(password, 10);
         
+        //user creation process
         try {
             const newUser = await prisma.user.create({
                 data: {

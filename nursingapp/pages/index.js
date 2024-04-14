@@ -8,6 +8,7 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
+  //handles the login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const status = await signIn('credentials', {
@@ -16,6 +17,7 @@ export default function Home() {
       password,
     });
 
+    //checks for errors after login is processed
     if (status.error) {
       console.log("Error");
     } else {
@@ -25,6 +27,7 @@ export default function Home() {
 
   };
 
+  //displays the login page
   return (
     <div>
       <img src="/WKU School Of Nursing Logo.jpg" alt="WKU Nursing Logo" style={{width: "400px", marginLeft:"36%"}}/>
@@ -44,6 +47,7 @@ export default function Home() {
         </form>
       </div>
       <p className={styles.centerText}>Don't have an account? Register <a href="/register">here</a></p>
+
     </div>
   );
 }

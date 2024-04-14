@@ -16,11 +16,13 @@ export default NextAuth({
                 username: { label: "Username", type: "text" },
                 password: { label: "Password", type: "password" }
             },
+            //runs the info through the database
             async authorize(credentials) {
                 const user = await prisma.user.findUnique({
                     where: { username: credentials.username },
                 });
 
+                //finds it and returns a user or not
                 if (user && bcrypt.compareSync(credentials.password, user.password_hash)) {
                     return { id: user.id, name: user.username, email: '' }; // Adjust according to your schema
                 } else {

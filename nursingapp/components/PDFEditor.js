@@ -150,6 +150,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
         }
     }, [pdfFileUrl]);
 
+    //loads pdf fom the url provided as a parameter
     const loadPdfFromFileUrl = async (fileUrl) => {
         const response = await fetch(fileUrl);
         const arrayBuffer = await response.arrayBuffer();
@@ -157,6 +158,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
         extractFormFields(pdfDoc);
     };
 
+    //checks for available form fields
     const extractFormFields = (pdfDoc) => {
         const form = pdfDoc.getForm();
         const fields = form.getFields();
@@ -166,16 +168,19 @@ const PdfEditor = ({ pdfFileUrl }) => {
             return { name, type };
         });
 
+        //adds them for later
         setPdfFormFields(fieldNames);
         console.log("Detected fields:", fieldNames);
         setFormData({});
         setFormErrors([]);
     };
 
+    //sets the number of pages
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
     };
 
+    //changes the form data
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prevFormData => ({
@@ -184,11 +189,12 @@ const PdfEditor = ({ pdfFileUrl }) => {
         }));
     };
 
+    //processes the information
     const handleSubmit = async () => {
         const errors = pdfFormFields
             .filter(({ name, type }) => type === 'text' && !formData[name])
             .map(({ name }) => name);
-
+        //checks for errors
         if (errors.length > 0) {
             setFormErrors(errors);
             alert('Please fill out all text fields.');
@@ -199,6 +205,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
         const pdfDoc = await PDFDocument.load(originalPdfBytes);
         const form = pdfDoc.getForm();
 
+        //goes through each check box or text field entered
         pdfFormFields.forEach(({ name, type }) => {
             const field = form.getField(name);
             if (type === 'checkbox') {
@@ -208,6 +215,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
             }
         });
 
+        //saves the pdf as a blob
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const downloadUrl = URL.createObjectURL(blob);
@@ -222,6 +230,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
         // Optionally reset form here or navigate away
     };
 
+    //displays the information
     return (
         <div>
             {pdfFormFields.map(({ name, type }, index) => (

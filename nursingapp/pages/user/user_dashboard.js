@@ -19,10 +19,10 @@ export default function Profile() {
             router.push("/");
             console.log("You have been signed out");
         } else if (session && session.user.role == 'admin') {
-            router.push("/pages/admin/dashboard");
+            router.push("/admin/dashboard");
             console.log("Redirecting to admin view...");
         }
-    }, [status, router]);
+    }, [status, router, session]);
 
     if (status === "loading") {
         return <p>Loading...</p>;

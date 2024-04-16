@@ -23,4 +23,5 @@ model User {
   username String @unique
   password_hash String
   role UserRole @default(USER)
+  pdf String?
 }

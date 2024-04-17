@@ -42,7 +42,7 @@ export default function Profile() {
             <hr/>
             <p>Please fill out the following forms</p><br/>
             <ul>
-                <li><Link href="\document_pages\doc1">2022 COVID Care Volunteer Form WKU Feedback</Link></li>
+                <li><Link href="/document_pages/doc1">2022 COVID Care Volunteer Form WKU Feedback</Link></li>
                 <li><Link href="">Consent form Release of Information - Spring 2024</Link></li>
                 <li><Link href="">LPN to ASN Online Acceptance Form - Spring 2024</Link></li>
                 <li><Link href="">LPN to ASN Student Handbook Acknowledgement</Link></li>
@@ -50,6 +50,8 @@ export default function Profile() {
                 <li><Link href="">Skills Pack and Equipment Use Agreement</Link></li>
                 <li><Link href="">WKU COVID 19 Assumption of Risk</Link></li>
             </ul><br/>
+            <p>View submitted docs</p>
+                <Link href="../viewdoc1">2022 COVID Care Volunteer Form WKU Feedback</Link><br/>
             <LogoutButton />
 
         </div>

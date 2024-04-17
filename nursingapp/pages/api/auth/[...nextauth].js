@@ -48,7 +48,7 @@ export const authOptions = {
             return token;
         },
         async session({ session, token }) {
-            session.user.id = token.id;
+            session.userId = token.id;
             session.user.name = token.name;
             session.user.role = token.role;
             return session;
@@ -56,6 +56,9 @@ export const authOptions = {
         },
     //database
     database: process.env.DATABASE_URL,
+    session: {
+        jwt: true, // Use JWT for session instead of database sessions
+      },
 }
 
 export default NextAuth(authOptions);

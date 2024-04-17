@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import { getSession } from 'next-auth/react';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -83,22 +84,6 @@ const PdfEditor = ({ pdfFileUrl }) => {
             }
         });
 
-
-        //OLD IMPLEMENTATION//------------------------------------------------------------------------------
-        /*
-        //saves the pdf as a blob
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const downloadUrl = URL.createObjectURL(blob);
-
-        const downloadLink = document.createElement('a');
-        downloadLink.href = downloadUrl;
-        downloadLink.download = 'filled-pdf.pdf';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        */
-
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const reader = new FileReader();
@@ -111,14 +96,17 @@ const PdfEditor = ({ pdfFileUrl }) => {
     };
 
     const savePdfToUserProfile = async (base64data) => {
-        console.log("savePdfToUserProfile just ran");
         try {
+            const session = await getSession();
+            const userId = session.userId;
             const response = await fetch('/api/saveUserPdf', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': userId,
                 },
                 body: JSON.stringify({ pdfData: base64data }),
+                credentials: 'include',
             });
             const result = await response.json();
             console.log(result.message);

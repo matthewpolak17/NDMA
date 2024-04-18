@@ -6,3 +6,41 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.footer {
+  padding: 0px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-family: Open;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  background-color: #222222;
+}
+
+.cardContainer{
+    display: grid; 
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); 
+    gap: 20px; 
+    justify-items: center;
+    align-items: center;
+}
+
+.card {
+  display: block;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #B01E24;
+  text-align: center;
+  color: white; 
+  text-decoration: none !important; 
+  transition: background-color 0.3s ease;
+}
+
+
+.card:hover {
+  background-color: #9A1A20;
+}

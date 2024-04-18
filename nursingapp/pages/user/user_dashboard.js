@@ -6,6 +6,14 @@ import PdfEditor from '../../components/PDFEditor';
 import Link from 'next/link';
 import LogoutButton from '../../components/LogoutButton';
 
+function ClickableCard({ title, href }) {
+    return (
+        <Link href={href}>
+            <div className={styles.card} style={{ textDecoration: 'none'}}>{title}</div>
+        </Link>
+    );
+}
+
 export default function Profile() {
     const { data: session, status } = useSession();
     const router = useRouter();
@@ -28,6 +36,12 @@ export default function Profile() {
         return <p>Loading...</p>;
     }
 
+    const footerContent = (
+        <footer className={styles.footer}>
+            <p>WKU</p>
+        </footer>
+    );
+
     //displays the main document page
     return (
         <div>
@@ -41,19 +55,21 @@ export default function Profile() {
             )}
             <hr/>
             <p>Please fill out the following forms</p><br/>
-            <ul>
-                <li><Link href="/document_pages/doc1">2022 COVID Care Volunteer Form WKU Feedback</Link></li>
-                <li><Link href="">Consent form Release of Information - Spring 2024</Link></li>
-                <li><Link href="">LPN to ASN Online Acceptance Form - Spring 2024</Link></li>
-                <li><Link href="">LPN to ASN Student Handbook Acknowledgement</Link></li>
-                <li><Link href="">Release and Waiver of Liability</Link></li>
-                <li><Link href="">Skills Pack and Equipment Use Agreement</Link></li>
-                <li><Link href="">WKU COVID 19 Assumption of Risk</Link></li>
-            </ul><br/>
+            <div className={styles.cardContainer}>
+                <ClickableCard title="2022 COVID Care Volunteer Form WKU Feedback" href="/document_pages/doc1" />
+                <ClickableCard title="Consent form Release of Information - Spring 2024" href="" />
+                <ClickableCard title="LPN to ASN Online Acceptance Form - Spring 2024" href="" />
+                <ClickableCard title="LPN to ASN Student Handbook Acknowledgement" href="" />
+                <ClickableCard title="Release and Waiver of Liability" href="" />
+                <ClickableCard title="Skills Pack and Equipment Use Agreement" href="" />
+                <ClickableCard title="WKU COVID 19 Assumption of Risk" href="" />
+            </div><br/>
             <p>View submitted docs</p>
                 <Link href="../viewdoc1">2022 COVID Care Volunteer Form WKU Feedback</Link><br/>
             <LogoutButton />
 
+        {/* Render the footer */}
+        {footerContent}
         </div>
     );
 }

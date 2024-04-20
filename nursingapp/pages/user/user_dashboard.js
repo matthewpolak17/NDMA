@@ -1,8 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styles from '/styles/profilestyle.module.css';
-import PdfEditor from '../../components/PDFEditor';
+import styles from '/styles/dashboardstyle.module.css';
 import Link from 'next/link';
 import LogoutButton from '../../components/LogoutButton';
 
@@ -38,7 +37,7 @@ export default function Profile() {
 
     const footerContent = (
         <footer className={styles.footer}>
-            <p>WKU</p>
+            <p>WKU ASN Program</p>
         </footer>
     );
 

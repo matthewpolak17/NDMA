@@ -28,7 +28,7 @@ export const authOptions = {
                     return { // adjust according to schema
                         id: user.id, 
                         name: user.username, 
-                        email: '', 
+                        email: user.email, 
                         role: user.role,
                     };
                 } else {
@@ -44,6 +44,7 @@ export const authOptions = {
                 token.id = user.id;
                 token.name = user.name;
                 token.role = user.role;
+                token.email = user.email;
             }
             return token;
         },
@@ -51,6 +52,7 @@ export const authOptions = {
             session.userId = token.id;
             session.user.name = token.name;
             session.user.role = token.role;
+            session.user.email = token.email;
             return session;
         }
         },

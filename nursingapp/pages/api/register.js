@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     if (req.method === 'POST') {
         //gather user info
-        const { username, password } = req.body;
+        const { username, password, email } = req.body;
         const passwordHash = bcrypt.hashSync(password, 10);
         
         //user creation process
@@ -17,6 +17,7 @@ export default async function handler(req, res) {
                 data: {
                     username,
                     password_hash: passwordHash,
+                    email,
                 },
             });
             res.status(200).json({ message: 'User created successfully', newUser });

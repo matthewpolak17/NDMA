@@ -1,6 +1,6 @@
 /* loginstyle.module.css */
 
-.loginContainer {
+.registerContainer {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -13,7 +13,7 @@
     margin-bottom: 20px;
 }
 
-.loginLabel {
+.registerLabel {
     display: block;
     margin-bottom: 5px;
 }
@@ -43,7 +43,7 @@
 }
 
 .centerText {
-    text-align: center;
+    margin-left: 41%;
 }
 
 .redHeader {
@@ -51,6 +51,21 @@
     background-color: rgb(176, 30, 36);
     color: white;
     width: 100%;
+}
+
+.back {
+    float: right;
+    background-color: rgb(176, 30, 36);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    width: 7%;
+    height: 30px;
+    margin: 10px;
+}
+
+.back:hover {
+    background-color: rgb(154, 26, 32);
 }
 
 .wkulogo {

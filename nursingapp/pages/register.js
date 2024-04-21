@@ -36,7 +36,7 @@ export default function Register() {
                 console.log("Error Signing In After Registering");
               }
         } else {
-            console.log("Error Registering");
+            alert("Username Already Taken");
         }
     }
 

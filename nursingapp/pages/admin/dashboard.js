@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styles from '/styles/profilestyle.module.css';
+import styles from '/styles/dashboardstyle.module.css';
 import Link from 'next/link';
 import { getSession } from 'next-auth/react';
 import LogoutButton from '../../components/LogoutButton';

@@ -30,6 +30,7 @@
     width: 100%;
     padding: 10px;
     font-size: 16px;
+    font-family: "OpenSans";
     border: none;
     border-radius: 3px;
     background-color: rgb(176, 30, 36)
@@ -61,7 +62,8 @@
     border: none;
     width: 7%;
     height: 30px;
-    margin: 10px;
+    margin-top: 20px;
+    margin-right: 20%;
 }
 
 .back:hover {

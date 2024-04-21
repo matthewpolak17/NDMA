@@ -23,10 +23,10 @@ export default function Home() {
     //checks for errors after login is processed
     if (status.error) {
       console.log("Error");
+      alert("The Username or Password is incorrect.");
     } else {
       console.log("Sign-in successful, redirecting...");
       const session = await getSession();
-      console.log("USER ROLE: ", session.user.role);
       if (session.user.role == "ADMIN") {
         router.push('/admin/dashboard');
       } else {

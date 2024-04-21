@@ -1,0 +1,79 @@
+.docimage {
+    width: 850px;
+    display: block;
+    margin: auto;
+}
+
+.input0 {
+    position: absolute;
+    top: 542px;
+    left: 114px;
+    transform: scale(1.8);
+    z-index: 10;
+}
+
+.input1 {
+    position: absolute;
+    top: 655px;
+    left: 108px;
+    transform: scale(1.8);
+    z-index: 10;
+}
+
+.input2 {
+    position: absolute;
+    top: 916px;
+    left: 110px;
+    transform: scale(1.1);
+    width: 173px;
+    z-index: 10;
+}
+
+.input3 {
+    position: absolute;
+    top: 916px;
+    left: 342px;
+    transform: scale(1.12);
+    width: 126px;
+    z-index: 10;
+}
+
+.input4 {
+    position: absolute;
+    top: 917px;
+    left: 530px;
+    transform: scale(1.15);
+    width: 55px;
+    z-index: 10;
+}
+
+.submit {
+    position: absolute;
+    top: 1000px;
+    left: 300px;
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(176, 30, 36);
+    color: #fff;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: rgb(154, 26, 32);
+}
+
+.button {
+    float: left;
+    padding: 10px;
+    width: 100px;
+    margin: 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(176, 30, 36);
+    color: #fff;
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@ import { PDFDocument } from 'pdf-lib';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { getSession } from 'next-auth/react';
+import styles from '../styles/doc1style.module.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -11,6 +12,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
     const [pdfFormFields, setPdfFormFields] = useState([]);
     const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState([]);
+
 
     // Effect to load PDF from URL and extract form fields
     useEffect(() => {
@@ -30,11 +32,15 @@ const PdfEditor = ({ pdfFileUrl }) => {
     //checks for available form fields
     const extractFormFields = (pdfDoc) => {
         const form = pdfDoc.getForm();
+        const num = 0;
         const fields = form.getFields();
-        const fieldNames = fields.map(field => {
+        const fieldNames = fields.map((field, num) => {
             const name = field.getName();
             let type = field.constructor.name === 'PDFCheckBox' ? 'checkbox' : 'text';
-            return { name, type };
+            let id = num++;
+            let left = 0;
+            let top = 0;
+            return { name, type, id, left, top};
         });
 
         //adds them for later
@@ -42,11 +48,21 @@ const PdfEditor = ({ pdfFileUrl }) => {
         console.log("Detected fields:", fieldNames);
         setFormData({});
         setFormErrors([]);
-    };
 
-    //sets the number of pages
-    const onDocumentLoadSuccess = ({ numPages }) => {
-        setNumPages(numPages);
+        //Styles each input field
+        fieldNames.forEach(field => {
+            if (field.id == 0) {
+                field.top = "50px";
+                field.left = "40px";
+            }
+
+            const input = document.createElement('input');
+            input.type = field.type;
+            input.style.position = 'absolute';
+            input.style.marginLeft = field.left;
+            input.style.marginTop = field.top;
+
+        });
     };
 
     //changes the form data
@@ -92,7 +108,6 @@ const PdfEditor = ({ pdfFileUrl }) => {
             savePdfToUserProfile(base64data);
         };
         reader.readAsDataURL(blob);
-        console.log("handleSubmit just ran");
     };
 
     const savePdfToUserProfile = async (base64data) => {
@@ -120,17 +135,18 @@ const PdfEditor = ({ pdfFileUrl }) => {
         <div>
             {pdfFormFields.map(({ name, type }, index) => (
                 <div key={index}>
-                    <label>{name}: </label>
                     <input
                         type={type}
                         name={name}
                         value={type === 'text' ? formData[name] || '' : undefined}
                         checked={type === 'checkbox' ? !!formData[name] : undefined}
                         onChange={handleInputChange}
+                        
                     />
                 </div>
             ))}
             <button onClick={handleSubmit}>Save to profile</button>
+
             {formErrors.length > 0 && (
                 <div>
                     <p>Please fill out all required fields:</p>
@@ -139,18 +155,11 @@ const PdfEditor = ({ pdfFileUrl }) => {
                     </ul>
                 </div>
             )}
-            
-            {pdfFileUrl && (
-                <Document file={pdfFileUrl} onLoadSuccess={onDocumentLoadSuccess}>
-                    {Array.from(new Array(numPages), (el, index) => (
-                        <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-                    ))}
-                </Document>
-            )}
         </div>
     );
 };
 
 export default PdfEditor;
+
 
 

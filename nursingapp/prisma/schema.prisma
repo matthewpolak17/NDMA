@@ -20,6 +20,8 @@ enum UserRole {
 
 model User {
   id Int @id @default(autoincrement())
+  first_name String @default("null")
+  last_name String @default("null")
   username String @unique
   password_hash String
   email String @default("No Email")

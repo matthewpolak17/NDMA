@@ -1,0 +1,107 @@
+.docimage {
+    width: 850px;
+    display: block;
+    margin: auto;
+}
+
+.input0 {
+    position: absolute;
+    top: 322px;
+    left: -20px;
+    width: 275px;
+    transform: scale(2);
+    z-index: 10;
+}
+
+.input1 {
+    position: absolute;
+    top: 379px;
+    left: 111px;
+    transform: scale(2);
+    z-index: 10;
+}
+
+.input2 {
+    position: absolute;
+    top: 324px;
+    left: 582px;
+    transform: scale(1.2);
+    width: 100px;
+    z-index: 10;
+}
+
+.input3 {
+    position: absolute;
+    top: 436px;
+    left: 131px;
+    transform: scale(1.35);
+    width: 162px;
+    z-index: 10;
+}
+
+.input4 {
+    position: absolute;
+    top: 436px;
+    left: 512px;
+    transform: scale(1.5);
+    width: 150px;
+    z-index: 10;
+}
+
+.input5 {
+    position: absolute;
+    top: 494px;
+    left: 131px;
+    transform: scale(1.35);
+    width: 162px;
+    z-index: 10;
+}
+
+.input6 {
+    position: absolute;
+    top: 705px;
+    left: 265px;
+    transform: scale(1.35);
+    width: 300px;
+    z-index: 10;
+}
+
+.input7 {
+    position: absolute;
+    top: 763px;
+    left: 223px;
+    transform: scale(1.35);
+    width: 162px;
+    z-index: 10;
+}
+
+.submit {
+    position: absolute;
+    top: 1050px;
+    left: 300px;
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(176, 30, 36);
+    color: #fff;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: rgb(154, 26, 32);
+}
+
+.button {
+    float: left;
+    padding: 10px;
+    width: 100px;
+    margin: 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(176, 30, 36);
+    color: #fff;
+    cursor: pointer;
+}

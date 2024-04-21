@@ -13,9 +13,15 @@ export default async function handler(req, res) {
                 },
                 select: {
                     pdf: true,
+                    pdf2: true,
+                    pdf3: true,
+                    pdf4: true,
+                    pdf5: true,
+                    pdf6: true,
+                    pdf7: true,
                 }
             });
-            res.status(200).json({ pdf: retrievePdf.pdf });
+            res.status(200).json({ pdfs: retrievePdf });
             console.log("PDF retrieved successfully");
         } catch (error) {
             console.error('Failed to find PDF:', error);

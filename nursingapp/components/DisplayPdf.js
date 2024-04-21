@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { getSession } from 'next-auth/react';
 
-const DisplayPdf = () => {
+const DisplayPdf = ({number}) => {
 
+    const num = parseInt(number);
     const [pdfBase64, setPdfBase64] = useState(null);  // state to store the base64 PDF data
 
     useEffect(() => {
@@ -14,7 +15,6 @@ const DisplayPdf = () => {
         try {
             const session = await getSession();
             const userId = session.userId;
-            console.log("RetrievePdf userId: ",userId);
             const response = await fetch('/api/getPdf', {
                 method: 'GET',
                 headers: {
@@ -25,7 +25,8 @@ const DisplayPdf = () => {
             });
             if (response.ok) {
                 const result = await response.json();
-                setPdfBase64(result.pdf); // assigns the base64 data retrieved
+                let pdfArray = Object.values(result.pdfs);
+                setPdfBase64(pdfArray[num-1]);
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

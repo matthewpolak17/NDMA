@@ -8,6 +8,8 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [first_name, setF_name] = useState('');
+    const [last_name, setL_name] = useState('');
 
     //handles the submission of the registration from
     const handleSubmit = async (event) => {
@@ -18,7 +20,7 @@ export default function Register() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password, email }),
+            body: JSON.stringify({ first_name, last_name, username, password, email }),
         });
 
         //makes sure there are no errors
@@ -36,7 +38,7 @@ export default function Register() {
                 console.log("Error Signing In After Registering");
               }
         } else {
-            alert("Username Already Taken");
+            alert("Error");
         }
     }
 
@@ -53,6 +55,14 @@ export default function Register() {
             <h1 className={styles.centerText}>Create an Account</h1>
             <div className={styles.registerContainer}>
                 <form onSubmit={handleSubmit}>
+                    <div className={styles.formGroup}>
+                        <label className={styles.registerLabel} htmlFor="first_name">First Name</label>
+                        <input id="first_name" className={styles.inputField} type="text" value={first_name} onChange={(e) => setF_name(e.target.value)} />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.registerLabel} htmlFor="last_name">Last Name</label>
+                        <input id="last_name" className={styles.inputField} type="text" value={last_name} onChange={(e) => setL_name(e.target.value)} />
+                    </div>
                     <div className={styles.formGroup}>
                         <label className={styles.registerLabel} htmlFor="username">Username</label>
                         <input id="username" className={styles.inputField} type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

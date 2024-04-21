@@ -25,4 +25,10 @@ model User {
   email String @default("No Email")
   role UserRole @default(USER)
   pdf String?
+  pdf2 String?
+  pdf3 String?
+  pdf4 String?
+  pdf5 String?
+  pdf6 String?
+  pdf7 String?
 }

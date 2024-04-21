@@ -38,9 +38,7 @@ const PdfEditor = ({ pdfFileUrl }) => {
             const name = field.getName();
             let type = field.constructor.name === 'PDFCheckBox' ? 'checkbox' : 'text';
             let id = num++;
-            let left = 0;
-            let top = 0;
-            return { name, type, id, left, top};
+            return { name, type, id};
         });
 
         //adds them for later
@@ -48,21 +46,6 @@ const PdfEditor = ({ pdfFileUrl }) => {
         console.log("Detected fields:", fieldNames);
         setFormData({});
         setFormErrors([]);
-
-        //Styles each input field
-        fieldNames.forEach(field => {
-            if (field.id == 0) {
-                field.top = "50px";
-                field.left = "40px";
-            }
-
-            const input = document.createElement('input');
-            input.type = field.type;
-            input.style.position = 'absolute';
-            input.style.marginLeft = field.left;
-            input.style.marginTop = field.top;
-
-        });
     };
 
     //changes the form data

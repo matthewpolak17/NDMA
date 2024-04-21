@@ -63,7 +63,6 @@ const Doc1Page = () => {
         const originalPdfBytes = await fetch(pdfURL).then(res => res.arrayBuffer());
         const pdfDoc = await PDFDocument.load(originalPdfBytes);
         const form = pdfDoc.getForm();
-        var numOfChecks = 0;
         var incomplete = false;
 
         //goes through each check box or text field entered
@@ -71,24 +70,16 @@ const Doc1Page = () => {
             const field = form.getField(name);
             if (type === 'checkbox') {
                 formData[name] ? field.check() : field.uncheck();
-
-                //counts the number of checks made
-                if (formData[name])
-                    numOfChecks++;
             } else if (type === 'text') {
-                if (formData[name] == undefined) {
+                if (formData[name] == undefined || formData[name] == "") {
                     incomplete = true;
                 } else {
                     field.setText(formData[name]);
                 }
             }
         });
-
-        //the user can only select one checkbox, not 0 or 2
-        if (numOfChecks == 0 || numOfChecks == 2) {
-            alert("Invalid Submission (See checkboxes)");
-            return;
-        } else if (incomplete) {
+        
+        if (incomplete) {
             alert("Please fill out all fields");
             return;
         }

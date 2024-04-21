@@ -86,3 +86,10 @@
 .cardL:hover {
   background-color: #CCCCCC;
 }
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 7%;
+}

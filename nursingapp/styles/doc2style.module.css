@@ -1,0 +1,117 @@
+.docimage {
+    width: 850px;
+    display: block;
+    margin: auto;
+}
+
+.input0 {
+    position: absolute;
+    top: 214px;
+    left: 45px;
+    width: 275px;
+    transform: scale(0.9);
+    z-index: 10;
+}
+
+.input1 {
+    position: absolute;
+    top: 438px;
+    left: 409px;
+    width: 225px;
+    transform: scale(1.5);
+    z-index: 10;
+}
+
+.input2 {
+    position: absolute;
+    top: 514px;
+    left: 409px;
+    transform: scale(1.5);
+    width: 225px;
+    z-index: 10;
+}
+
+.input3 {
+    position: absolute;
+    top: 591px;
+    left: 409px;
+    transform: scale(1.5);
+    width: 225px;
+    z-index: 10;
+}
+
+.input4 {
+    position: absolute;
+    top: 669px;
+    left: 379px;
+    transform: scale(1.5);
+    width: 120px;
+    z-index: 10;
+}
+
+.input5 {
+    position: absolute;
+    top: 769px;
+    left: 68px;
+    transform: scale(0.8);
+    width: 235px;
+    z-index: 10;
+}
+
+.input6 {
+    position: absolute;
+    top: 803px;
+    left: 85px;
+    transform: scale(0.8);
+    width: 125px;
+    z-index: 10;
+}
+
+.input7 {
+    position: absolute;
+    top: 803px;
+    left: 233px;
+    transform: scale(0.8);
+    width: 170px;
+    z-index: 10;
+}
+
+.input8 {
+    position: absolute;
+    top: 803px;
+    left: 420px;
+    transform: scale(0.9);
+    width: 15px;
+    z-index: 10;
+}
+
+.submit {
+    position: absolute;
+    top: 1000px;
+    left: 300px;
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(176, 30, 36);
+    color: #fff;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: rgb(154, 26, 32);
+}
+
+.button {
+    float: left;
+    padding: 10px;
+    width: 100px;
+    margin: 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(176, 30, 36);
+    color: #fff;
+    cursor: pointer;
+}

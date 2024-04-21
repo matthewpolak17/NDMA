@@ -30,6 +30,8 @@ export const authOptions = {
                         name: user.username, 
                         email: user.email, 
                         role: user.role,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
                     };
                 } else {
                     throw new Error('Invalid username or password');
@@ -45,6 +47,8 @@ export const authOptions = {
                 token.name = user.name;
                 token.role = user.role;
                 token.email = user.email;
+                token.first_name = user.first_name;
+                token.last_name = user.last_name;
             }
             return token;
         },
@@ -53,6 +57,8 @@ export const authOptions = {
             session.user.name = token.name;
             session.user.role = token.role;
             session.user.email = token.email;
+            session.user.first_name = token.first_name;
+            session.user.last_name = token.last_name;
             return session;
         }
         },

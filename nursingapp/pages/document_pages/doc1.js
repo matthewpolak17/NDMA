@@ -110,7 +110,7 @@ const Doc1Page = () => {
             });
             const result = await response.json();
             console.log(result.message);
-            router.push("/viewdoc1");
+            router.push("/view/viewdoc1");
         } catch (error) {
             console.error('Error saving PDF:', error);
         }

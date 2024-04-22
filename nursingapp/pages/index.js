@@ -41,7 +41,7 @@ export default function Home() {
       <div>
       <img src="/wkucuplong.jpg" alt="WKU Logo" className={styles.wkulogo}/>
       <hr />
-      <h1 className={styles.centerText}>Welcome to the Document Submission Portal</h1>
+      <h1 className={styles.centerText}>Welcome to the ASN Document Submission Portal</h1>
 
       <div className={styles.loginContainer}>
         <h2>Login</h2>

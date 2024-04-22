@@ -76,7 +76,7 @@ export default function Register() {
                         <input id="email" className={styles.inputField} type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <button className={styles.button} type="submit">Register</button>
-                </form>
+                </form><br/>
             </div>
         </div>
     );

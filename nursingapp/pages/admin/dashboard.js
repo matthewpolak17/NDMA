@@ -1,84 +1,85 @@
-import { useSession } from 'next-auth/react';
+// pages/admin/dashboard.js
 import { useEffect } from 'react';
+import { useSession, getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import styles from '/styles/dashboardstyle.module.css';
-import Link from 'next/link';
-import { getSession } from 'next-auth/react';
+import styles from '../../styles/admindashboard.module.css';
 import LogoutButton from '../../components/LogoutButton';
+import { PrismaClient } from '@prisma/client';
 
-export default function Profile() {
-    const { data: session, status } = useSession();
-    const router = useRouter();
+export default function Dashboard({ users }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-    useEffect(() => {
-        // Redirect to sign-in page if not authenticated
-        if (status === 'unauthenticated') {
-            router.push("/");
-            console.log("You have been signed out");
-        } else if (session && session.user.role == "USER") {
-            router.push("/user/user_dashboard");
-            console.log("Redirecting to user view...");
-        }
-    }, [status, router]);
-
-    if (status === "loading") {
-        return <p>Loading...</p>;
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push("/");
+    } else if (session && session.user.role === "USER") {
+      router.push("/user/user_dashboard");
     }
+  }, [status, session, router]);
 
-    //displays the main document page
-    return (
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div>
+      <h1 className={styles.centerText}>Nursing Document Submission Portal</h1>
+      {session ? (
         <div>
-            <h1 className={styles.centerText}>Nursing Document Submission Portal</h1>
-            {session ? (
-                <div>
-                    <p className={styles.addressUser}>Welcome, {session.user.name}!</p>
-                    <p>This is an admin view</p>
+          <p className={styles.addressUser}>Welcome, {session.user.name}!</p>
+          <p>This is an admin view</p>
+          <div className={styles.folderContainer}>
+            {users.length > 0 ? (
+              users.map(user => (
+                <div key={user.id} className={styles.userFolder} onClick={() => router.push(`/admin/documents/${user.id}`)}>
+                  <h2>{user.name} ({user.email})</h2>
                 </div>
+              ))
             ) : (
-                <p>You are not signed in.</p>
+              <p>No submissions available.</p>
             )}
-            <hr/>
-            <p>Please fill out the following forms</p><br/>
-            <ul>
-                <li><Link href="\document_pages\doc1">2022 COVID Care Volunteer Form WKU Feedback</Link></li>
-                <li><Link href="">Consent form Release of Information - Spring 2024</Link></li>
-                <li><Link href="">LPN to ASN Online Acceptance Form - Spring 2024</Link></li>
-                <li><Link href="">LPN to ASN Student Handbook Acknowledgement</Link></li>
-                <li><Link href="">Release and Waiver of Liability</Link></li>
-                <li><Link href="">Skills Pack and Equipment Use Agreement</Link></li>
-                <li><Link href="">WKU COVID 19 Assumption of Risk</Link></li>
-            </ul><br/>
-            <LogoutButton />
-
+          </div>
         </div>
-    );
+      ) : (
+        <p>You are not signed in.</p>
+      )}
+      <LogoutButton />
+    </div>
+  );
 }
 
-//this function ensures that non-admins are redirected
-//before the page is loaded
 export async function getServerSideProps(context) {
-    const session = await getSession({ req: context.req });
-  
-    if (!session) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-  
-    if (session.user.role !== "ADMIN") {
-      return {
-        redirect: {
-          destination: '/', 
-          permanent: false,
-        },
-      };
-    }
-    
-    console.log("You don't have access to this page");
+  const prisma = new PrismaClient();
+  const session = await getSession({ req: context.req });
+
+  if (!session || session.user.role !== "ADMIN") {
+    await prisma.$disconnect();
     return {
-      props: { session },
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
     };
+  }
+
+  const users = await prisma.user.findMany({
+    where: {
+      OR: [
+        { pdf: { not: null } },
+        { pdf2: { not: null } },
+        { pdf3: { not: null } },
+        { pdf4: { not: null } },
+        { pdf5: { not: null } },
+        { pdf6: { not: null } },
+        { pdf7: { not: null } },
+      ],
+    },
+  });
+
+  await prisma.$disconnect();
+
+  return {
+    props: { users },
+  };
 }

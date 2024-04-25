@@ -19,18 +19,30 @@ enum UserRole {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  first_name String @default("null")
-  last_name String @default("null")
-  username String @unique
+  id            Int        @id @default(autoincrement())
+  first_name    String     @default("null")
+  last_name     String     @default("null")
+  username      String     @unique
   password_hash String
-  email String @default("No Email")
-  role UserRole @default(USER)
-  pdf String?
-  pdf2 String?
-  pdf3 String?
-  pdf4 String?
-  pdf5 String?
-  pdf6 String?
-  pdf7 String?
+  email         String     @default("No Email")
+  role          UserRole   @default(USER)
+  pdf           String?
+  pdf2          String?
+  pdf3          String?
+  pdf4          String?
+  pdf5          String?
+  pdf6          String?
+  pdf7          String?
+  documents     Document[] // New relation for extended document tracking
 }
+
+model Document {
+  id         Int      @id @default(autoincrement())
+  name       String
+  content    String?
+  completionHash String? // Add this line if it's missing
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  submittedAt DateTime?
+}
+

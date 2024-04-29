@@ -1,60 +1,77 @@
 // pages/admin/dashboard.js
-import { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSession, getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { PrismaClient } from '@prisma/client';
 import styles from '../../styles/admindashboard.module.css';
 import LogoutButton from '../../components/LogoutButton';
-import { PrismaClient } from '@prisma/client';
 
 export default function Dashboard({ users }) {
-  const { data: session, status } = useSession();
-  const router = useRouter();
+  const { data: session } = useSession();
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push("/");
-    } else if (session && session.user.role === "USER") {
-      router.push("/user/user_dashboard");
-    }
-  }, [status, session, router]);
-
-  if (status === "loading") {
-    return <p>Loading...</p>;
+  if (!session || session.user.role !== "ADMIN") {
+    return <p className={styles.accessDenied}>Access Denied</p>;
   }
 
+  const handleBackClick = () => setSelectedUser(null);
+
   return (
-    <div>
-      <h1 className={styles.centerText}>Nursing Document Submission Portal</h1>
-      {session ? (
-        <div>
-          <p className={styles.addressUser}>Welcome, {session.user.name}!</p>
-          <p>This is an admin view</p>
-          <div className={styles.folderContainer}>
+    <div className={styles.dashboardContainer}>
+      <header className={styles.header}>
+        <h1 className={styles.centerText}>Admin Dashboard</h1>
+        <LogoutButton className={styles.logoutButton} />
+      </header>
+
+      <main className={styles.mainContent}>
+        {selectedUser ? (
+          <div>
+            <button onClick={handleBackClick} className={styles.backButton}>
+              Back to User List
+            </button>
+            <div className={styles.documentsContainer}>
+              <h2 className={styles.documentsHeading}>{selectedUser.username}'s Documents</h2>
+              {selectedUser.documents.map((doc, index) => (
+                <a
+                  key={index}
+                  className={styles.documentLink}
+                  href={`data:application/pdf;base64,${doc.content}`}
+                  download={`Document-${index + 1}.pdf`}
+                >
+                  Download Document {index + 1}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className={styles.usersContainer}>
             {users.length > 0 ? (
               users.map(user => (
-                <div key={user.id} className={styles.userFolder} onClick={() => router.push(`/admin/documents/${user.id}`)}>
-                  <h2>{user.name} ({user.email})</h2>
+                <div key={user.id} className={styles.userFolder}>
+                  <h2>{user.first_name} {user.last_name} ({user.email})</h2>
+                  <button onClick={() => setSelectedUser(user)} className={styles.viewButton}>
+                    View Documents
+                  </button>
                 </div>
               ))
             ) : (
-              <p>No submissions available.</p>
+              <p className={styles.noDocuments}>No users with submitted documents.</p>
             )}
           </div>
-        </div>
-      ) : (
-        <p>You are not signed in.</p>
-      )}
-      <LogoutButton />
+        )}
+      </main>
+
+      <footer className={styles.footer}>
+        <p>Associate of Science in Nursing Program</p>
+      </footer>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const prisma = new PrismaClient();
-  const session = await getSession({ req: context.req });
+  const session = await getSession(context);
 
   if (!session || session.user.role !== "ADMIN") {
-    await prisma.$disconnect();
     return {
       redirect: {
         destination: '/',
@@ -63,23 +80,44 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const users = await prisma.user.findMany({
-    where: {
-      OR: [
-        { pdf: { not: null } },
-        { pdf2: { not: null } },
-        { pdf3: { not: null } },
-        { pdf4: { not: null } },
-        { pdf5: { not: null } },
-        { pdf6: { not: null } },
-        { pdf7: { not: null } },
-      ],
-    },
-  });
+  try {
+    const users = await prisma.user.findMany();
 
-  await prisma.$disconnect();
+    const usersWithDocuments = users.map(user => {
+      const documents = [];
 
-  return {
-    props: { users },
-  };
+      // Check for the first PDF stored under 'pdf'
+      if (user.pdf) {
+        documents.push({ content: user.pdf });
+      }
+
+      // Check for the rest under 'pdf1', 'pdf2', etc.
+      for (let i = 1; i <= 7; i++) {
+        const pdfField = `pdf${i}`;
+        if (user[pdfField]) {
+          documents.push({ content: user[pdfField] });
+        }
+      }
+
+      return {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        documents,
+      };
+    }).filter(user => user.documents.length > 0); // Ensure we only include users with documents
+
+    return {
+      props: { users: usersWithDocuments }
+    };
+  } catch (error) {
+    console.error('Error during database query:', error);
+    return {
+      props: { users: [] }
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
 }

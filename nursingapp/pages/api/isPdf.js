@@ -7,6 +7,7 @@ export default async function handler(req, res) {
         const userId = parseInt(userIdString, 10);
         
         try {
+            // Retrieves the user along with specified PDF fields from the database
             const pdfs = await prisma.user.findUnique({
                 where: {
                     id: userId,

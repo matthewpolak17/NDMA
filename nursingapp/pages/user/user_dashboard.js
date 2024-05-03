@@ -7,6 +7,7 @@ import { signOut } from 'next-auth/react';
 
 export async function getServerSideProps(context) {
 
+    // User Dashboard layout
     try {
         const session = await getSession(context);
         const userId = session.userId;

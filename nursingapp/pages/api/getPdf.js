@@ -7,6 +7,7 @@ export default async function handler(req, res) {
         const userId = parseInt(userIdString, 10);
         
         try {
+            // Query the database for a unique user based on the user ID
             const retrievePdf = await prisma.user.findUnique({
                 where: {
                     id: userId,

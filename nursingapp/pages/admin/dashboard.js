@@ -1,10 +1,10 @@
-// pages/admin/dashboard.js
 import React, { useState } from 'react';
 import { useSession, getSession } from 'next-auth/react';
 import { PrismaClient } from '@prisma/client';
 import styles from '../../styles/admindashboard.module.css';
 import LogoutButton from '../../components/LogoutButton';
 
+// Displays the admin dashboard
 export default function Dashboard({ users }) {
   const { data: session } = useSession();
   const [selectedUser, setSelectedUser] = useState(null);
@@ -71,6 +71,7 @@ export async function getServerSideProps(context) {
   const prisma = new PrismaClient();
   const session = await getSession(context);
 
+  // Redirects if not admin
   if (!session || session.user.role !== "ADMIN") {
     return {
       redirect: {

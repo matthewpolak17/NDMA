@@ -1,10 +1,10 @@
-// pages/api/documents/submit.js
 import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
   const prisma = new PrismaClient();
   const { userId, docId } = req.body;
 
+  // Document submission
   try {
     const document = await prisma.document.update({
       where: { id: docId },
